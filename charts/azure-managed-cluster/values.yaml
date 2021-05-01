@@ -1,0 +1,50 @@
+# Default values for azure-managed-cluster.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## AKS cluster configuration
+
+## The subscription ID
+subscriptionID: ""
+
+cluster:
+
+  ## The resource group for the AKS cluster object
+  resourceGroupName: aksclusters
+
+  ## The resource group name for the nodes
+  nodeResourceGroupName: base
+
+  ## The location of the cluster
+  location: westeurope
+
+  ## The name of the cluster
+  name: aks-cluster-api
+
+  ## the subnet 
+  cidrBlocks:
+  - 192.168.0.0/16
+
+controlplane:
+  ## SSH public key (must be valid)
+  sshPublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIOxg+goSYoCIND3IIAjPoPGr7gsux9OQjE5IP2wEU8eMsywgGXBwZXUVjh8NgFHVWZEMTQCAM52P2ipYBup9QhuqWVjH4v0hrj1X/rx7tzlZh2wk3kgVPQwMKCyacQLifqus4quJLSQAPu1ksgxaWEBWnSa0e+DM2D0PYs/j284qOO9T9ULqpb/ZJK9gySa+AfSMhGCskcT/EfE8g1iqC96PajFxGHOBxqiDFtIKPhNiqKYruDhVJYmhAXG6ScHadiXzP3BdiPR66eyCOQtSeIxjnEeJcrZ7vZLFpWQvaaZw+JfPkGGFCsBTn39dfr1awrMtPIPvkj4iU1jkGKzUD alessandro@Alessandros-MBP.fritz.box"
+  
+  ## Kubernetes version
+  kubernetes_version: "v1.19.3"
+
+  ## Network policy, "calico" (for kubenet and azurecni) or "azure" (for azureCNI)
+  networkPolicy: "calico"
+
+  ## Network Plugin "kubenet" or "azure"
+  networkPlugin: "kubenet"
+
+  
+agentpools:
+ - name: agentpool0
+   sku: Standard_B4ms
+   nodecount: 2
+   osDiskSizeGB: 100
+ - name: agentpool1
+   nodecount: 2
+   sku: Standard_B4ms
+   osDiskSizeGB: 100
