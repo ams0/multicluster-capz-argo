@@ -28,8 +28,8 @@ spec:
                 sku: Standard_B4ms
                 osDiskSizeGB: 100 
     repoURL: https://github.com/ams0/multicluster-capz-argo.git
-    targetRevision: main
-    chart: charts/azure-managed-cluster
+    targetRevision: HEAD
+    path: charts/azure-managed-cluster
   syncPolicy:
     automated:
       prune: true
