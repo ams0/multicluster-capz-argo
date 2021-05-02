@@ -1,5 +1,7 @@
 #!/bin/bash
 
+GH_USER=ams0
+
 #Create the ArgoCD Root App
 kubectl apply -f - <<EOF
 apiVersion: argoproj.io/v1alpha1
@@ -13,7 +15,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: root
-    repoURL: 'https://github.com/ams0/multicluster-capz-argo.git'
+    repoURL: 'https://github.com/$GH_USER/multicluster-capz-argo.git'
     targetRevision: HEAD
     directory:
       recurse: true

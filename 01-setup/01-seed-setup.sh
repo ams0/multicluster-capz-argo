@@ -10,7 +10,7 @@ az aks create -k 1.20.5 -g seed \
 -c 2 -s Standard_B2ms --enable-managed-identity \
 -l westeurope -n seed
 
-az aks get-credentials -g seed -n seed
+az aks get-credentials -g seed -n seed --overwrite-existing
 
 #install argocd 
 kubectl create namespace argocd

@@ -4,7 +4,12 @@ This repo serves as a companion to the talk at [GitOpsCon 2021](https://hopin.co
 
 ## Walkthrough
 
-1. Install an AKS cluster with ArgoCD, ingress-nginx, cert-manager.
+1. Fork this repo and `sed` your github username for mine:
+
+```bash
+sed -i 
+
+2. Install an AKS cluster with ArgoCD, ingress-nginx, cert-manager.
 
 ```bash
 cd 01-setup
