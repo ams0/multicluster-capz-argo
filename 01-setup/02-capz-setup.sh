@@ -20,3 +20,4 @@ export EXP_MACHINE_POOL=true
 export EXP_AKS=true
 
 clusterctl init --infrastructure azure
+kubectl wait --timeout=120s --for condition=Available -n capz-system deployment capz-controller-manager

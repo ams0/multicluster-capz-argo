@@ -18,6 +18,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 #install cert-manager & cluster-issuer
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.yaml
+kubectl wait --timeout=120s --for condition=Available -n cert-manager deployment cert-manager
 kubectl apply -f - <<EOF
 apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
@@ -37,6 +38,7 @@ EOF
 
 #install ingress & setup external IP to capz.westeurope.cloudapp.azure.com
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.46.0/deploy/static/provider/cloud/deploy.yaml
+kubectl wait --timeout=120s --for condition=Available -n ingress-nginx deployment ingress-nginx-controller
 kubectl annotate -n ingress-nginx svc ingress-nginx-controller "service.beta.kubernetes.io/azure-dns-label-name=capz"
 
 #ArgoCD ingress setup
@@ -79,32 +81,6 @@ kubectl -n argocd patch secret argocd-secret \
     "admin.password": "$2a$10$dAhSI0FMGomk0ve0Najj2ucAlV9FYVxTjkV9TRTC5HnqpEHxjK3FC",
     "admin.passwordMtime": "'$(date +%FT%T%Z)'"
   }}'
-
-#Create the ArgoCD Root App
-kubectl apply -f - <<EOF
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: root-app
-  namespace: argocd
-spec:
-  destination:
-    namespace: argocd
-    server: 'https://kubernetes.default.svc'
-  source:
-    path: root
-    repoURL: 'https://github.com/ams0/multicluster-capz-argo.git'
-    targetRevision: HEAD
-    directory:
-      recurse: true
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-EOF
 
 #Open the ArgoCD login page (admin/supersecret)
 open https://capz.westeurope.cloudapp.azure.com
