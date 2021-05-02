@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: clusters
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/ams0/multicluster-capz-argo.git
+      revision: HEAD
+      directories:
+      - path: clusters/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/ams0/multicluster-capz-argo.git
+        targetRevision: HEAD
+        path: root
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: clusters
