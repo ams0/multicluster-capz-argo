@@ -16,10 +16,10 @@ spec:
     metadata:
       name: '{{cluster}}'
     spec:
-        destination:
-          namespace: clusters
-          server: https://kubernetes.default.svc
-        project: default
+      destination:
+        namespace: clusters
+        server: https://kubernetes.default.svc
+      project: default
       source:
         helm:
           values: |
