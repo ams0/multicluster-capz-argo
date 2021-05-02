@@ -23,7 +23,7 @@ cluster:
 
   ## the subnet 
   cidrBlocks:
-  - 192.168.0.0/16
+  - 10.0.0.0/16
 
 controlplane:
   ## SSH public key (must be valid)
