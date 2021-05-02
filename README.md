@@ -2,6 +2,8 @@
 
 This repo serves as a companion to the talk at [GitOpsCon 2021](https://hopin.com/events/gitops-con) "Managing multiple clusters with GitOps and ClusterAPI" organized by the [CNCF GitOps Working Group](https://github.com/gitops-working-group/gitops-working-group), a pre-day event for KubeconEU 2021.
 
+It leverages the new [ApplicationSet](https://argoproj.github.io/argo-cd/user-guide/application-set/) controller for ArgoCD to scan a folder with cluster definitions and creates an Application per cluster, calling the chart in [`charts/azure-managed-cluster`](charts/azure-managed-cluster) to deploy an AKS cluster with ClusterAPI for Azure controller.
+
 ## Walkthrough
 
 1. Fork this repo and `sed` your github username for mine:
