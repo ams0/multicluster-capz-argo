@@ -8,6 +8,7 @@ This repo serves as a companion to the talk at [GitOpsCon 2021](https://hopin.co
 
 ```bash
 sed -i 
+```
 
 2. Install an AKS cluster with ArgoCD, ingress-nginx, cert-manager.
 
@@ -16,8 +17,10 @@ cd 01-setup
 ./seed-setup.sh
 ```
 
-1. Install ClusterAPI with Azure provider (edit the script if you don't have the environtment variable set)
+3. Install ClusterAPI with Azure provider (edit the script if you don't have the environment variables: AZURE_SUBSCRIPTION_ID, AZURE_TENANT_ID, AZURE_CLIENT_ID and AZURE_CLIENT_SECRET set to a service principal with enough rights to create AKS clusters in your subscription.)
 
 ```bash
-./capz-setup.sh
+./02-capz-setup.sh
 ```
+
+4. Install the root 

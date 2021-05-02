@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GH_USER=ams0
+GH_USER="${1:-ams0}"
 
 #Create the ArgoCD Root App
 kubectl apply -f - <<EOF
