@@ -19,7 +19,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/appli
 
 #install cert-manager & cluster-issuer
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.yaml
-kubectl wait --timeout=120s --for condition=Available -n cert-manager deployment cert-manager
+kubectl wait --timeout=600s --for condition=Ready -n cert-manager po -l app.kubernetes.io/component=controller
 kubectl apply -f - <<EOF
 apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
@@ -39,7 +39,7 @@ EOF
 
 #install ingress & setup external IP to capz.westeurope.cloudapp.azure.com
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.46.0/deploy/static/provider/cloud/deploy.yaml
-kubectl wait --timeout=120s --for condition=Available -n ingress-nginx deployment ingress-nginx-controller
+kubectl wait --timeout=600s --for condition=Ready -n ingress-nginx po -l app.kubernetes.io/component=controller
 kubectl annotate -n ingress-nginx svc ingress-nginx-controller "service.beta.kubernetes.io/azure-dns-label-name=capz"
 
 #ArgoCD ingress setup
