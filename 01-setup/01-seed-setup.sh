@@ -42,7 +42,7 @@ EOF
 #install ingress & setup external IP to capz.westeurope.cloudapp.azure.com
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.46.0/deploy/static/provider/cloud/deploy.yaml
 kubectl wait --timeout=600s --for condition=Ready -n ingress-nginx po -l app.kubernetes.io/component=controller
-kubectl annotate -n ingress-nginx svc ingress-nginx-controller "service.beta.kubernetes.io/azure-dns-label-name=capz"
+kubectl annotate -n ingress-nginx svc ingress-nginx-controller "service.beta.kubernetes.io/azure-dns-label-name=$URL"
 
 #ArgoCD ingress setup
 kubectl apply -f - <<EOF
