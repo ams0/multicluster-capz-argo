@@ -2,7 +2,7 @@
 
 EMAIL=alessandro.vozza@microsoft.com
 URL="${1:-capz}"
-LOCATION="${1:-westeurope}"
+LOCATION="${2:-westeurope}"
 
 # Needs a logged in azure cli and the `aks-preview` extension.
 
