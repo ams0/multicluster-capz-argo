@@ -44,23 +44,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 kubectl wait --timeout=600s --for condition=Ready -n ingress-nginx po -l app.kubernetes.io/component=controller
 kubectl annotate -n ingress-nginx svc ingress-nginx-controller "service.beta.kubernetes.io/azure-dns-label-name=capz"
 
-kubectl apply -f - <<EOF
-apiVersion: cert-manager.io/v1alpha2
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-prod
-spec:
-  acme:
-    email: $EMAIL
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      name: letsencrypt-prod-issuer-account-key
-    solvers:
-    - http01:
-        ingress:
-          class: nginx
-EOF
-
 #ArgoCD ingress setup
 kubectl apply -f - <<EOF
 apiVersion: networking.k8s.io/v1
