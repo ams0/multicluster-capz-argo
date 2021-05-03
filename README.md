@@ -47,3 +47,5 @@ kubectl get secret -n clusters aks3-kubeconfig -o yaml -o jsonpath={.data.value}
 argocd cluster add aks3 --name aks3 --kubeconfig aks3.kubeconfig
 rm aks3.kubeconfig
 ```
+
+An `ApplicationSet` is already in place on the management cluster to deploy ArgoCD `Applications` present in the `workloads` folder, and deploy them to the target cluster.
