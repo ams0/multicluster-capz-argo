@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: workloads
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/ams0/multicluster-capz-argo.git
+      revision: HEAD
+      directories:
+      - path: workloads/*
+  template:
+    metadata:
+      name: '{{path.basename}}-app'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/ams0/multicluster-capz-argo.git
+        targetRevision: HEAD
+        path: "workloads/{{path.basename}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: workloads
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+          - CreateNamespace=true

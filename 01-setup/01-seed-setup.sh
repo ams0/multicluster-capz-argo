@@ -1,6 +1,8 @@
 #!/bin/bash
 
 EMAIL=alessandro.vozza@microsoft.com
+URL="${1:-capz}"
+LOCATION="${1:-westeurope}"
 
 # Needs a logged in azure cli and the `aks-preview` extension.
 
@@ -77,7 +79,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
-  - host: capz.westeurope.cloudapp.azure.com
+  - host: $URL.$LOCATION.cloudapp.azure.com
     http:
       paths:
       - path: /
@@ -89,7 +91,7 @@ spec:
               name: https
   tls:
   - hosts:
-    - capz.westeurope.cloudapp.azure.com
+    - $URL.$LOCATION.cloudapp.azure.com
     secretName: argocd-secret # do not change, this is provided by Argo CD
 EOF
 
@@ -101,6 +103,6 @@ kubectl -n argocd patch secret argocd-secret \
   }}'
 
 #Open the ArgoCD login page (admin/supersecret)
-open https://capz.westeurope.cloudapp.azure.com
+open https://$URL.$LOCATION.cloudapp.azure.com
 
 
